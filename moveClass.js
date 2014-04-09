@@ -10,15 +10,34 @@
     this.centerY = pos[1];
   }
 
-  MoveObject.prototype.move = function(vel) {
-    this.centerX += vel[0] % screenWidth; //screenWidth comes from game
-    this.centerY += vel[1] % screenHeight;
+  MoveObject.prototype.move = function(screenWidth, screenHeight) {
+
+    this.centerX += this.vel[0] % screenWidth; //screenWidth comes from game
+    this.centerY += this.vel[1] % screenHeight;
+
+    if (this.centerX - this.radius >= screenWidth) {
+      this.centerX = 0 - this.radius;
+    } else if (this.centerX + this.radius <= 0) {
+      this.centerX = screenWidth + this.radius;
+    }
+
+    if (this.centerY - this.radius >= screenHeight) {
+      this.centerY = 0 - this.radius;
+    } else if (this.centerY + this.radius <= 0) {
+      this.centerY = screenHeight + this.radius;
+    }
+
+    // console.log("center:")
+    // console.log(this.centerX)
+    // console.log("vel")
+    // console.log(this.vel[0])
+    // console.log(screenWidth)
   };
 
   MoveObject.prototype.draw = function(ctx){ //ctx comes from game
-    ctx.fillStyle = "pink";
+    ctx.fillStyle = "hotpink";
     ctx.beginPath();
-
+    //console.log(ctx);
     ctx.arc(
       this.centerX,
       this.centerY,
@@ -31,7 +50,7 @@
     ctx.fill();
   };
 
-  MoveObject.prototype.isCollideWith(otherObject){
+  MoveObject.prototype.isCollideWith = function(otherObject){
     distX = this.centerX - otherObject.centerX;
     distY = this.centerY - otherObject.centerY;
     totRad = this.radius + otherObject.radius;
@@ -40,6 +59,12 @@
     } else {
       return false;
     }
+  };
+
+  Function.prototype.inherits = function(superClass){
+    function Surrogate() {};
+    Surrogate.prototype = superClass.prototype;
+    this.prototype = new Surrogate();
   };
 
 })(this);

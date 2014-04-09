@@ -4,12 +4,15 @@
     <title>Aseteroidesu</title>
 </head>
 <body>
-    <canvas width="500" height="500"></canvas>
+    <canvas width="300" height="300"></canvas>
 
     <script src="moveClass.js"></script>
+    <script src="asteroid.js"></script>
+    <script src="game.js"></script>
     <script>
         var canvas = document.getElementsByTagName("canvas")[0];
-        new Circles.Game(500, 500, 10).start(canvas);
+        var game = new Asteroids.Game(canvas);
+        game.start();
     </script>
 </body>
 </html>

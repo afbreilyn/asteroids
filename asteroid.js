@@ -2,29 +2,32 @@
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
   var Asteroid = Asteroids.Asteroid = function(pos, vel, radius, colour) {
-    Asteroid.inherits(movingObject);
-    movingObject.call(this, pos, vel, radius, colour);
+    Asteroids.MoveObject.call(this, pos, vel, radius, colour);
   };
 
-  Asteroid.COLOUR = 'black';
-  Asteroid.RADIUS = 35;
 
-  Asteroid.prototype.randPosition = function(){
+  Asteroid.inherits(Asteroids.MoveObject);
+
+  Asteroid.COLOUR = 'pink';
+  Asteroid.RADIUS = 25;
+
+  Asteroid.randPosition = function(screenWidth, screenHeight) {
     startX = Math.floor(Math.random()*screenWidth);
     startY = Math.floor(Math.random()*screenHeight);
     return newPos = [startX, startY];
   };
 
   Asteroid.randomAsteroid = function(screenWidth, screenHeight) {
-    newVel = Math.floor(Math.random()*5);
-    newPos = this.randPosition();
-    return new Asteroid(newPos, newVel, Asteroid.RADIUS, Asteroid.COLOUR);
+    newVelX = ((Math.random()*2) -1)/2;
+    newVelY = ((Math.random()*2) -1)/2;
+    if ((newVelX === 0) && (newVelY === 0)) {
+      newVelX = -2;
+      newVelY = 1;
+    };
+    newPos = Asteroid.randPosition(screenWidth, screenHeight);
+    return new Asteroid(newPos, [newVelX, newVelY], Asteroid.RADIUS, Asteroid.COLOUR);
   };
 
 })(this);
 
-Function.prototype.inherits = function(superClass){
-  function Surrogate() {};
-  Surrogate.prototype = superClass.prototype;
-  this.prototype = new Surrogate();
-};
+
