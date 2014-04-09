@@ -5,10 +5,9 @@
     Asteroids.MoveObject.call(this, pos, vel, radius, colour);
   };
 
-
   Asteroid.inherits(Asteroids.MoveObject);
 
-  Asteroid.COLOUR = 'pink';
+  Asteroid.COLOUR = 'hotpink';
   Asteroid.RADIUS = 25;
 
   Asteroid.randPosition = function(screenWidth, screenHeight) {

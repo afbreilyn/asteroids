@@ -34,8 +34,8 @@
     // console.log(screenWidth)
   };
 
-  MoveObject.prototype.draw = function(ctx){ //ctx comes from game
-    ctx.fillStyle = "hotpink";
+  MoveObject.prototype.draw = function(ctx, colour){ //ctx comes from game
+    ctx.fillStyle = colour;
     ctx.beginPath();
     //console.log(ctx);
     ctx.arc(
@@ -51,10 +51,22 @@
   };
 
   MoveObject.prototype.isCollideWith = function(otherObject){
-    distX = this.centerX - otherObject.centerX;
-    distY = this.centerY - otherObject.centerY;
+    distX = Math.abs(this.centerX - otherObject.centerX);
+    distY = Math.abs(this.centerY - otherObject.centerY);
     totRad = this.radius + otherObject.radius;
-    if (distX < totRad || distY < totRad) {
+
+    // console.log("otherObjX")
+    // console.log(otherObject.centerX)
+    // console.log("otherObjY")
+    // console.log(otherObject.centerY)
+    // console.log("(distY * distY)");
+    // console.log((distY * distY));
+    // console.log("(distX * distX)");
+    // console.log((distX * distX));
+    // console.log("totRad");
+    // console.log(totRad);
+
+    if ((totRad * totRad) > ((distX * distX) + (distY * distY))){
       return true;
     } else {
       return false;
